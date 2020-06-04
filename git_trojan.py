@@ -23,7 +23,7 @@ task_queue = Queue.Queue()
 
 def connect_to_github():
     gh = login(username='binbin831',password='msplcb123')
-    repo = gh.repository('binbin831','')
+    repo = gh.repository('binbin831','myFristRepository/chapter7')
     branch = repo.branch('master')
 
     return gh,repo,branch
